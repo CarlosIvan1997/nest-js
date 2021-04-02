@@ -2,5 +2,5 @@ export class Coffee {
   id: number;
   name: string;
   brand: string;
-  flavors: string[];
+  flavors: Array<string>;
 }
