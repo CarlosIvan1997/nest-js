@@ -6,34 +6,43 @@ import {
   Param,
   Patch,
   Post,
+  // Query,
 } from '@nestjs/common';
+import { CoffeesService } from './coffees.service';
 
 @Controller('coffees')
 export class CoffeesController {
+  constructor(private readonly coffeesService: CoffeesService) { }
+
+  // @Get()
+  // findAll(@Query() paginationQuery) {
+  //   const { limit, offset } = paginationQuery;
+  //   return this.coffeesService.findAll();
+  // }
+
   @Get()
   findAll() {
-    return 'This actions returns all coffees';
+    return this.coffeesService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `This action returns #${id} coffee`;
+    return this.coffeesService.findOne(id);
   }
 
   @Post()
   // @HttpCode(HttpStatus.GONE) To set a static HttpCode
   create(@Body() body) {
-    return body;
+    return this.coffeesService.create(body);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() body) {
-    console.log(body);
-    return `This actions updates #${id} coffee`;
+    return this.coffeesService.update(id, body);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return `This actions removes #${id} coffee`;
+    return this.coffeesService.remove(id);
   }
 }
