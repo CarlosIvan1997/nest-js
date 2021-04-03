@@ -32,10 +32,7 @@ export class CoffeesService {
     private readonly connection: Connection, // @Inject(COFFEE_BRANDS) coffeeBrands: Array<string>, // @Inject(REQUEST) private request: Request, // To get data from requests, only if score is REQUEST
     private readonly configService: ConfigService,
   ) {
-    const databaseHost = this.configService.get<string>(
-      'DATABASE_HOST',
-      'localhost',
-    );
+    const databaseHost = this.configService.get('database.host', 'localhost');
     console.log(databaseHost);
   }
 
