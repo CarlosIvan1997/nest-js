@@ -25,8 +25,8 @@ import coffeesConfig from './config/coffees.config';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Coffee, Flavor, Event]),
     ConfigModule.forFeature(coffeesConfig),
+    TypeOrmModule.forFeature([Coffee, Flavor, Event]),
   ],
   controllers: [CoffeesController],
   providers: [
