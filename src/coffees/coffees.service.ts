@@ -17,6 +17,7 @@ import { Flavor } from './entities/flavor.entity';
 import { COFFEE_BRANDS } from './coffees.constants';
 import { REQUEST } from '@nestjs/core';
 import { Request } from 'express';
+import { ConfigService } from '@nestjs/config';
 
 // @Injectable({ scope: Scope.DEFAULT }) // It is like @Injectable(), singleton
 // @Injectable({ scope: Scope.TRANSIENT }) // A new instance is created for each consumer
@@ -29,7 +30,14 @@ export class CoffeesService {
     @InjectRepository(Flavor)
     private readonly flavorRepository: Repository<Flavor>,
     private readonly connection: Connection, // @Inject(COFFEE_BRANDS) coffeeBrands: Array<string>, // @Inject(REQUEST) private request: Request, // To get data from requests, only if score is REQUEST
-  ) {}
+    private readonly configService: ConfigService,
+  ) {
+    const databaseHost = this.configService.get<string>(
+      'DATABASE_HOST',
+      'localhost',
+    );
+    console.log(databaseHost);
+  }
 
   async findAll(paginationQuery: PaginationQueryDto) {
     const { limit, offset } = paginationQuery;
