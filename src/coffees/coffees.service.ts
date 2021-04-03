@@ -4,6 +4,7 @@ import {
   Inject,
   Injectable,
   NotFoundException,
+  Scope,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
@@ -14,7 +15,12 @@ import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 import { Coffee } from './entities/coffee.entity';
 import { Flavor } from './entities/flavor.entity';
 import { COFFEE_BRANDS } from './coffees.constants';
+import { REQUEST } from '@nestjs/core';
+import { Request } from 'express';
 
+// @Injectable({ scope: Scope.DEFAULT }) // It is like @Injectable(), singleton
+// @Injectable({ scope: Scope.TRANSIENT }) // A new instance is created for each consumer
+// @Injectable({ scope: Scope.REQUEST }) // A new instance is created for each request
 @Injectable()
 export class CoffeesService {
   constructor(
@@ -22,9 +28,8 @@ export class CoffeesService {
     private readonly coffeeRepository: Repository<Coffee>,
     @InjectRepository(Flavor)
     private readonly flavorRepository: Repository<Flavor>,
-    private readonly connection: Connection,
-    // @Inject(COFFEE_BRANDS) coffeeBrands: Array<string>,
-  ) { }
+    private readonly connection: Connection, // @Inject(COFFEE_BRANDS) coffeeBrands: Array<string>, // @Inject(REQUEST) private request: Request, // To get data from requests, only if score is REQUEST
+  ) {}
 
   async findAll(paginationQuery: PaginationQueryDto) {
     const { limit, offset } = paginationQuery;
