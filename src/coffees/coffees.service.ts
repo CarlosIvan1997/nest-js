@@ -31,11 +31,9 @@ export class CoffeesService {
     private readonly coffeeRepository: Repository<Coffee>,
     @InjectRepository(Flavor)
     private readonly flavorRepository: Repository<Flavor>,
-    private readonly connection: Connection, // @Inject(COFFEE_BRANDS) coffeeBrands: Array<string>, // @Inject(REQUEST) private request: Request, // To get data from requests, only if score is REQUEST
-    @Inject(coffeesConfig.KEY)
-    private coffeesConfiguration: ConfigType<typeof coffeesConfig>,
+    private readonly connection: Connection, // @Inject(COFFEE_BRANDS) coffeeBrands: Array<string>, // @Inject(REQUEST) private request: Request, // To get data from requests, only if score is REQUEST // @Inject(coffeesConfig.KEY) // private coffeesConfiguration: ConfigType<typeof coffeesConfig>,
   ) {
-    console.log(coffeesConfiguration.foo);
+    // console.log(coffeesConfiguration.foo);
   }
 
   async findAll(paginationQuery: PaginationQueryDto) {
