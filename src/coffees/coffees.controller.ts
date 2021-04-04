@@ -17,6 +17,7 @@ import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 import { Protocol } from '../common/decorators/protocol.decorator';
+import { ApiForbiddenResponse } from '@nestjs/swagger';
 
 // @UsePipes(ValidationPipe) Controller-scoped
 @Controller('coffees')
@@ -24,6 +25,7 @@ export class CoffeesController {
   constructor(private readonly coffeesService: CoffeesService) {}
 
   // @UsePipes(ValidationPipe) Method-scoped
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
   @Public()
   @Get()
   findAll(
