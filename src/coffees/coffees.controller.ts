@@ -10,6 +10,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { ParseIntPipe } from '../common/pipes/parse-int.pipe';
 import { Public } from '../common/decorators/public.decorator';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { CoffeesService } from './coffees.service';
@@ -29,7 +30,7 @@ export class CoffeesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number) {
+  findOne(@Param('id', ParseIntPipe) id: number) {
     return this.coffeesService.findOne(id);
   }
 
@@ -41,7 +42,7 @@ export class CoffeesController {
 
   @Patch(':id')
   update(
-    @Param('id') id: number,
+    @Param('id', ParseIntPipe) id: number,
     @Body(/*ValidationPipe Param-scoped, available to Pipes only*/)
     updateCoffeeDto: UpdateCoffeeDto,
   ) {
@@ -49,7 +50,7 @@ export class CoffeesController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number) {
+  remove(@Param('id', ParseIntPipe) id: number) {
     return this.coffeesService.remove(id);
   }
 }
