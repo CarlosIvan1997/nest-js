@@ -23,28 +23,31 @@ export class CoffeesController {
   // }
 
   @Get()
-  findAll() {
-    return this.coffeesService.findAll();
+  async findAll() {
+    return await this.coffeesService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.coffeesService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    return await this.coffeesService.findOne(id);
   }
 
   @Post()
   // @HttpCode(HttpStatus.GONE) To set a static HttpCode
-  create(@Body() createCoffeeDto: CreateCoffeeDto) {
-    return this.coffeesService.create(createCoffeeDto);
+  async create(@Body() createCoffeeDto: CreateCoffeeDto) {
+    return await this.coffeesService.create(createCoffeeDto);
   }
 
   @Patch(':id')
-  update(@Param('id') id: number, @Body() updateCoffeeDto: UpdateCoffeeDto) {
-    return this.coffeesService.update(id, updateCoffeeDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updateCoffeeDto: UpdateCoffeeDto,
+  ) {
+    return await this.coffeesService.update(id, updateCoffeeDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number) {
-    return this.coffeesService.remove(id);
+  async remove(@Param('id') id: string) {
+    return await this.coffeesService.remove(id);
   }
 }
